@@ -71,18 +71,13 @@
                         <div class="tool">A</div>
                         <div class="tool">/</div>
                     </div>
-                    <div class="canvas-scroll-area">
-                        <div class="canvas-border">
-                            <canvas id="drawCanvas" width="560" height="560"></canvas>
-                            <!-- Resize handles aesthetic -->
-                            <div class="resize-handle right"></div>
-                            <div class="resize-handle bottom"></div>
-                            <div class="resize-handle corner"></div>
-                        </div>
+                    <!-- Container for full-size canvas -->
+                    <div class="canvas-fill-area" id="canvasContainer">
+                        <canvas id="drawCanvas"></canvas>
                     </div>
                     <div class="status-bar">
                         <div class="sb-item">For Help, click Help Topics on the Help Menu.</div>
-                        <div class="sb-item">560 x 560px</div>
+                        <div class="sb-item" id="resolutionDisplay">-- x -- px</div>
                     </div>
                 </div>
             </div>
@@ -141,7 +136,8 @@
         </div>
     </div>
 
-    <canvas id="hiddenCanvas" width="560" height="560" style="display:none;"></canvas>
+    <!-- Hidden canvas used for processing, size is managed by JS -->
+    <canvas id="hiddenCanvas" style="display:none;"></canvas>
     <script src="script.js"></script>
 </body>
 </html>
