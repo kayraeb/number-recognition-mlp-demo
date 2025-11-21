@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Updated viewport for better mobile app behavior (prevents zooming while drawing) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Number Recognition Demo </title>
+    <title>Number Recognition Demo</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 </head>
@@ -36,20 +35,22 @@
                     <fieldset class="xp-fieldset">
                         <legend>Operations</legend>
                         <button id="clearBtn" class="xp-btn">
-                            <!-- Simple icon placeholders -->
-                            <span class="icon">↺</span>
+                            <span class="btn-icon">↺</span>
                             Clear Canvas
                         </button>
                         <button id="predictBtn" class="xp-btn default" disabled>
-                            <span class="icon">⚡</span>
+                            <span class="btn-icon">⚡</span>
                             Start Prediction
                         </button>
                     </fieldset>
 
+                    <!-- Sensor Group -->
                     <fieldset class="xp-fieldset sensor-group">
                         <legend>Neural Sensor (28px)</legend>
-                        <div class="sensor-housing">
-                            <canvas id="sensorCanvas" width="28" height="28"></canvas>
+                        <div class="sensor-wrapper">
+                            <div class="sensor-housing">
+                                <canvas id="sensorCanvas" width="28" height="28"></canvas>
+                            </div>
                         </div>
                     </fieldset>
                 </div>
@@ -72,7 +73,6 @@
                         <div class="tool">A</div>
                         <div class="tool">/</div>
                     </div>
-                    <!-- Container for full-size canvas -->
                     <div class="canvas-fill-area" id="canvasContainer">
                         <canvas id="drawCanvas"></canvas>
                     </div>
