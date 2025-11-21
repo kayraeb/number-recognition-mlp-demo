@@ -3,120 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Number Recognition - Microsoft Internet Explorer</title>
+    <title>Number Recognition - Windows XP</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 </head>
 <body>
 
-    <div class="xp-window">
-        <div class="title-bar">
-            <div class="title-bar-text">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/54/Internet_Explorer_6_logo.png" class="ie-icon" alt="">
-                Number Recognition - Microsoft Internet Explorer
-            </div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
-                <button aria-label="Maximize"></button>
-                <button aria-label="Close" class="close-btn"></button>
-            </div>
-        </div>
+    <div class="xp-desktop">
+        <div class="deck-container">
 
-        <div class="ie-chrome">
-            <div class="menu-bar">
-                <span class="menu-item"><u>F</u>ile</span>
-                <span class="menu-item"><u>E</u>dit</span>
-                <span class="menu-item"><u>V</u>iew</span>
-                <span class="menu-item">F<u>a</u>vorites</span>
-                <span class="menu-item"><u>T</u>ools</span>
-                <span class="menu-item"><u>H</u>elp</span>
-                <div class="windows-logo"></div>
-            </div>
-            <div class="toolbar-separator"></div>
-            <div class="address-bar-row">
-                <span class="label">Address</span>
-                <div class="address-input-wrapper">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/54/Internet_Explorer_6_logo.png" class="addr-icon">
-                    <input type="text" value="http://www.kayraeb.github.io/number-recog/" readonly>
-                    <div class="dropdown-arrow">▼</div>
+            <!-- Left Panel: Controls -->
+            <div class="xp-window left-panel">
+                <div class="window-title-bar">
+                    <span class="title-text">Controls</span>
+                    <div class="title-controls">
+                        <button class="win-btn minimize"></button>
+                        <button class="win-btn maximize"></button>
+                        <button class="win-btn close"></button>
+                    </div>
                 </div>
-                <button class="xp-btn go-btn">Go</button>
-            </div>
-        </div>
-
-        <div class="window-body">
-            <div class="deck-container">
-
-                <fieldset class="xp-panel left-panel">
-                    <legend>Control Panel</legend>
-                    
-                    <div class="xp-section">
+                <div class="window-body">
+                    <fieldset class="xp-fieldset">
+                        <legend>System Status</legend>
                         <div class="status-row">
                             <div class="indicator" id="statusIndicator"></div>
-                            <span id="statusText">Initializing...</span>
+                            <span id="statusText">Booting...</span>
                         </div>
                         <div id="latencyMetric" class="xp-dim">Latency: -- ms</div>
-                    </div>
+                    </fieldset>
 
-                    <div class="xp-section button-group">
+                    <fieldset class="xp-fieldset">
+                        <legend>Operations</legend>
                         <button id="clearBtn" class="xp-btn">
-                            <span class="icon">↺</span> Clear Canvas
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Gnome-edit-clear.svg/16px-Gnome-edit-clear.svg.png" alt="" class="btn-icon">
+                            Clear Canvas
                         </button>
                         <button id="predictBtn" class="xp-btn default" disabled>
-                            <span class="icon">⚡</span> Identify Number
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Gnome-system-run.svg/16px-Gnome-system-run.svg.png" alt="" class="btn-icon">
+                            Start Prediction
                         </button>
-                    </div>
+                    </fieldset>
 
-                    <fieldset class="xp-inner-fieldset">
-                        <legend>Sensor Input (28px)</legend>
-                        <div class="sensor-frame">
+                    <fieldset class="xp-fieldset sensor-group">
+                        <legend>Neural Sensor (28px)</legend>
+                        <div class="sensor-housing">
+                            <!-- Canvas remains 28x28 logically, CSS scales it up visually -->
                             <canvas id="sensorCanvas" width="28" height="28"></canvas>
                         </div>
                     </fieldset>
-                </fieldset>
-
-                <div class="xp-panel center-panel">
-                    <div class="paint-container">
-                        <div class="canvas-housing" id="canvasHousing">
-                            <canvas id="drawCanvas" width="560" height="560"></canvas>
-                            </div>
-                    </div>
-                    <div class="status-bar-text">Input Matrix: 560x560 px</div>
                 </div>
+            </div>
 
-                <fieldset class="xp-panel right-panel">
-                    <legend>Analysis Results</legend>
-
-                    <div class="xp-section result-section">
-                        <div class="xp-label">Detected Digit:</div>
-                        <div class="digit-display inset-box">
-                            <span id="predictionResult">--</span>
+            <!-- Center Panel: Drawing Area -->
+            <div class="xp-window center-panel">
+                <div class="window-title-bar">
+                    <span class="title-text">Input Matrix - Untitled</span>
+                    <div class="title-controls">
+                        <button class="win-btn minimize"></button>
+                        <button class="win-btn maximize"></button>
+                        <button class="win-btn close"></button>
+                    </div>
+                </div>
+                <div class="window-body paint-body">
+                    <div class="paint-toolbar">
+                        <div class="tool active">✎</div>
+                        <div class="tool">▧</div>
+                        <div class="tool">A</div>
+                        <div class="tool">/</div>
+                    </div>
+                    <div class="canvas-scroll-area">
+                        <div class="canvas-border">
+                            <canvas id="drawCanvas" width="560" height="560"></canvas>
+                            <!-- Resize handles aesthetic -->
+                            <div class="resize-handle right"></div>
+                            <div class="resize-handle bottom"></div>
+                            <div class="resize-handle corner"></div>
                         </div>
                     </div>
-
-                    <div class="xp-section">
-                        <div class="xp-label">Probability Distribution</div>
-                        <div class="contenders-list inset-box" id="contendersList">
-                            </div>
+                    <div class="status-bar">
+                        <div class="sb-item">For Help, click Help Topics on the Help Menu.</div>
+                        <div class="sb-item">560 x 560px</div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="xp-section">
-                        <div class="xp-label">Certainty Level</div>
-                        <div class="xp-progress-bar">
-                            <div class="xp-progress-chunks">
+            <!-- Right Panel: Results -->
+            <div class="xp-window right-panel">
+                <div class="window-title-bar">
+                    <span class="title-text">Analysis</span>
+                    <div class="title-controls">
+                        <button class="win-btn minimize"></button>
+                        <button class="win-btn maximize"></button>
+                        <button class="win-btn close"></button>
+                    </div>
+                </div>
+                <div class="window-body">
+                    <fieldset class="xp-fieldset result-fieldset">
+                        <legend>Classification</legend>
+                        <div class="digit-display">
+                            <span id="predictionResult">?</span>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="xp-fieldset">
+                        <legend>Confidence Dist.</legend>
+                        <div class="contenders-list" id="contendersList">
+                            <!-- Populated by JS -->
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="xp-fieldset">
+                        <legend>Certainty</legend>
+                        <div class="xp-progress-container">
+                            <div class="xp-progress-bar">
                                 <div id="confidenceBar" class="xp-progress-fill"></div>
                             </div>
                         </div>
                         <span id="confidenceValue">0.0%</span>
-                    </div>
-                </fieldset>
-
+                    </fieldset>
+                </div>
             </div>
-        </div>
 
-        <div class="xp-status-bar">
-            <div class="sb-section main"><span class="icon">e</span> Done</div>
-            <div class="sb-section">Internet</div>
+        </div>
+        
+        <!-- Taskbar Aesthetic -->
+        <div class="xp-taskbar">
+            <div class="start-button">
+                <span class="logo">❖</span> start
+            </div>
+            <div class="task-divider"></div>
+            <div class="task-item active">
+                <span class="task-icon">✎</span> Number Recog...
+            </div>
+            <div class="tray-area">
+                <div class="time">12:00 PM</div>
+            </div>
         </div>
     </div>
 
